@@ -1,9 +1,11 @@
+//1-13 Write a program to print a histogram of the lengths of words in its input. It is easy to draw the histogram with the bars horizontal; a vertical orientation is more challenging.
+
 #include <stdio.h>
 
-#define MAXWORDLEN 10 //We'll make it 10 to make it more simple
-
+#define MAXWORDLEN 10 //We're gonna be using only 10 to make it simpler
+		      
 int main() {
-    int c, i, words[MAXWORDLEN + 1], ndigit;
+    int c, i, j, words[MAXWORDLEN + 1], ndigit;
     ndigit = 0;
     
     for (i = 0; i <= MAXWORDLEN; ++i) {
@@ -23,24 +25,51 @@ int main() {
     if (ndigit > 0 && ndigit <= MAXWORDLEN) {
         ++words[ndigit];
     }
+    
 
+    //Horizontal
+    printf("\n");
     for (i = 1; i <= MAXWORDLEN; ++i) {
         printf("%2d|", i);
-            for (int j = 0; j < words[i]; ++j) {
+            for (j = 0; j < words[i]; ++j) {
                 printf("\u25A0 ");
         }
         printf("\n");
     }
-    printf("  ");
+    printf("N ");
 
     for (i = 1; i <= MAXWORDLEN; ++i) {
         printf("--");
     }
-    printf("\n  ");
+    printf("\n W");
     for (i = 1; i < MAXWORDLEN; ++i) {
         printf("%2d", i);
     }
     printf(" %d\n", MAXWORDLEN);
-    
+
+
+    //Vertical
+    printf("\n");
+    for (i = MAXWORDLEN; i > 0; --i) {
+        printf("%2d|", i);
+	for (j = 1; j <= MAXWORDLEN; ++j) {
+	    if (words[j] >= i) {
+   	       printf("\u25A0 ");
+	    } else {
+   	       printf("  ");
+	    }
+	}
+	printf("\n");
+    }
+    printf("W ");
+
+    for (i = 1; i <= MAXWORDLEN; ++i) {
+        printf("--");
+    }
+    printf("\n N");
+    for (i = 1; i < MAXWORDLEN; ++i) {
+        printf("%2d", i);
+    }
+    printf(" %d\n", MAXWORDLEN);
     return 0;
 }
