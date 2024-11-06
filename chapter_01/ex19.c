@@ -40,7 +40,8 @@ void reverse(char s[]) {
 		}
 		--len;
 	}
-	if (og[copy-1] == '\n') {
+
+	if (i > 0 && og[copy-1] == '\n') {
 		s[i] == '\n';
 		++i;
 	}
