@@ -1,5 +1,7 @@
 //1.19 Write a function reverse(s) that reverses the character string s. Use it to write a program that reverses its input a line at a time.
 
+//Sice the book says reverse(s), I assumed char s[] is the only parameter. Is this way, we need to get the size of the string and also reverse the same s[] string that is being passed. So I've made another char og[] to copy the contents of s[], and then reverse the s[] based on the content of og[]. This could be much simpler if the size of the string was being passed on the reverse(s) method, but since the book don't actually says that, I've opted for my approach explained above.
+
 #include <stdio.h>
 #define MAXLINE 1000
 
@@ -30,13 +32,17 @@ void reverse(char s[]) {
 	copy(s, og);
 	
 
-	int i = 0;
+	int i = 0, copy = len;
 	while (len >= 0) {
 		if (og[len] != '\n' && og[len] != '\0') {
 			s[i] = og[len];
 			++i;
 		}
 		--len;
+	}
+	if (og[copy-1] == '\n') {
+		s[i] == '\n';
+		++i;
 	}
 	s[i] = '\0';
 }
