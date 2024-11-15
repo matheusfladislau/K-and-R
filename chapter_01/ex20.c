@@ -8,14 +8,15 @@
 //           4
 
 //Thinking about that, the code is really easy. You should just make a mod TABSTOP in a current char position (to make it stay between 0-8) and subtract to the total amount of TABSTOP (refering to the next jump).
+//Next step was to make two char arrays, one would be the original and the other without the TABs. I've used two counters to put one char into the other, considering that the spaces would occupy much more fields into the array than a simple \t.
+
 
 #include <stdio.h>
 #define MAXLINE 1000
 #define TABSTOP 8
 
 int my_getline(char line[], int maxlen);
-void detab(char line[]);
-void copy(char from[], char to[]);
+void detab(char line[], char dtb[]);
 
 int main() {
 	int len;
@@ -23,8 +24,9 @@ int main() {
 
 	while ((len = my_getline(line, MAXLINE)) >= 0) {
 		if (len >= 1) {
-      detab(line);
-			printf("%s", line);
+			char dtb[MAXLINE];
+			detab(line, dtb);
+			printf("%s", dtb);
 		}
 	}
 	return 0;
@@ -35,8 +37,8 @@ int my_getline(char line[], int maxlen) {
 	i = 0;
 
 	while (i < maxlen-1 && (c = getchar()) != EOF && c != '\n') {
-			line[i] = c;
-			++i;
+		line[i] = c;
+		++i;
 	}
 
 	if (i > 0 && c == '\n') {
@@ -48,26 +50,24 @@ int my_getline(char line[], int maxlen) {
 	return i;
 }
 
-void detab(char line[]) {
-  int i = 0;
-  while (line[i] != '\0') {
-    if (line[i] == '\t') {
-      int amount_space = TABSTOP - (i % TABSTOP);
-      printf("espaço para próximo tab: %d\n", amount_space);
-      int total = i + amount_space;
-      printf("total de caracteres = %d\n", total);
+void detab(char line[], char dtb[]) {
+	int i, y;
+	i = y = 0;
 
-      for (int y = i; y < total; ++y) {
-        line[y] = 'y';
-      }
-    }
-    ++i;
-  }
-}
+	while (line[i] != '\0') {
+		if (line[i] == '\t') {
+			int amount_space = TABSTOP - (y % TABSTOP);
+			int total = y + amount_space;
 
-void copy(char from[], char to[]) {
-  int i = 0;
-  while ((to[i] = from[i]) != '\0') {
-    ++i;
-  }
+			while (y < total) {
+				dtb[y] = ' ';
+				++y;
+			}
+		} else {
+			dtb[y] = line[i];
+			++y;
+		} 
+		++i;
+	}
+	dtb[y] = '\0';
 }
