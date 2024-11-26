@@ -36,31 +36,20 @@ int main() {
             }
         }
     }
-    //fazer o EOF (usar o ultimo position)
 	return 0;
 }
 
 void entab(int initialpos, int position) {
-    printf("\n");
-    printf("initialpos = %d\n", initialpos);
-    printf("position = %d\n", position);
     int amount_space_tabstop = TABSTOP - (initialpos % TABSTOP);
-    int amount_space = position - (initialpos % TABSTOP);
-    printf("\n");
-    printf("amount_space_tabstop = %d\n", amount_space_tabstop);
-    printf("amount_space = %d\n", amount_space);
+    int amount_space = position - initialpos;
 
-    if (amount_space < amount_space_tabstop) {
-        while (amount_space > 0) {
-            putchar('.');
-            --amount_space;
-        }
-    } else {
+    while (amount_space >= amount_space_tabstop) {
         putchar('-');
         amount_space -= amount_space_tabstop;
-        while (amount_space > 0) {
-            putchar('.');
-            --amount_space;
-        }
+        amount_space_tabstop = TABSTOP;
+    }
+    while (amount_space > 0) {
+        putchar('.');
+        --amount_space;
     }
 }
