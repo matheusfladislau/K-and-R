@@ -44,12 +44,12 @@ void entab(int initialpos, int position) {
     int amount_space = position - initialpos;
 
     while (amount_space >= amount_space_tabstop) {
-        putchar('-');
+        putchar('\t');
         amount_space -= amount_space_tabstop;
         amount_space_tabstop = TABSTOP;
     }
     while (amount_space > 0) {
-        putchar('.');
+        putchar(' ');
         --amount_space;
     }
 }
