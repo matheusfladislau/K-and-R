@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -pedantic -Wall -Wextra -Werror
+CFLAGS = -pedantic -Wall -Wextra -Werror -g
 OUTPUT = ex$(ex).out
 
 all: $(OUTPUT)
